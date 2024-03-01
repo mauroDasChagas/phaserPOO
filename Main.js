@@ -2,11 +2,13 @@
 import Background from './Classes/Background.mjs';
 import Player from './Classes/Player.mjs';
 
-// definindo variáveis que armazenarão as instâncias das classes;
-let background;
-let player;
-
 class Main extends Phaser.Scene {
+
+    // variáveis que armazenarão as instâncias das classes;
+    background;
+    player;
+
+    // construtor
     constructor() {
         super({ key: 'Main' });
     }
@@ -15,21 +17,25 @@ class Main extends Phaser.Scene {
         // carregando imagens;
         this.load.image('background', './assets/background.png');
         this.load.image('player', './assets/player.png');
-
-        background = new Background(this, 400, 400, 'background');
-        player = new Player(this, 100, 100, 'player', 0.3);
     }
 
     create() {
-        // background;
-        background.createBackground();
+        this.setBackgroundInMainScene();
+        this.setPlayerInMainScene();
+    }
 
-        // player;
-        player.createPlayer();
+    setBackgroundInMainScene() {
+        this.background = new Background(this, 400, 400, 'background');
+        this.background.createBackground();
+    }
+
+    setPlayerInMainScene() {
+        this.player = new Player(this, 400, 500, 'player', 0.3);
+        this.player.createPlayer(this);
     }
 
     update() {
-        player.move();
+        this.player.move();
     }
 }
 

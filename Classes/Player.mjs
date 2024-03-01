@@ -1,53 +1,54 @@
-class Player extends Phaser.GameObjects.Sprite {
+export default class Player extends Phaser.GameObjects.Sprite {
+
+    inputs;
+    speed = 8;
+
     constructor(scene, x, y, sprite, scale) {
-        super(scene, x, y, sprite, scale);
-
-        // properties;
-        this.scene = scene;
-        this.x = x
-        this.y = y;
-        this.sprite = sprite;
-        this.scale = scale;
-
-        this.inputs = this.scene.input.keyboard.createCursorKey();
+        super(scene, x, y, sprite).setScale(scale);
+        this.inputs = scene.input.keyboard.createCursorKeys();
     }
 
-    getProperties() {
-        return {
-            scene: this.scene,
-            x: this.x,
-            y: this.y,
-            sprite: this.sprite,
-            scale: this.scale,
-            inputs: this.inputs
-        };
+    createPlayer(_scene) {
+        _scene.add.existing(this);
+        _scene.physics.add.existing(this);
+        // this.setCollideWorldBounds(true);
     }
 
-    createPlayer() {
-        const { scene, x, y, sprite, scale } = this.getProperties();
-        const playerSprite = scene.physics.add.sprite(x, y, sprite);
-        playerSprite.setScale(scale);
+    moveRight() {
+        this.x += this.speed;
+    }
+
+    moveLeft() {
+        this.x -= this.speed;
+    }
+
+    moveUp() {
+        this.y -= this.speed;
+    }
+
+    moveDown() {
+        this.y += this.speed;
     }
 
     move() {
-        const { inputs } = this.getProperties();
-
-        if (inputs.left.isDown) {
-            this.setVelocityX(-150);
-        } else if (inputs.right.isDown) {
-            this.setVelocityX(150);
-        } else {
-            this.setVelocityX(0);
+        if(this.inputs.right.isDown) {
+            this.moveRight();
+            return;
         }
 
-        if (inputs.down.isDown) {
-            this.setVelocityY(-150);
-        } else if (inputs.up.isDown) {
-            this.setVelocityY(150);
-        } else {
-            this.setVelocityY(0);
+        if(this.inputs.left.isDown) {
+            this.moveLeft();
+            return;
+        }
+
+        if(this.inputs.up.isDown) {
+            this.moveUp();
+            return;
+        }
+
+        if(this.inputs.down.isDown) {
+            this.moveDown();
+            return;
         }
     }
 }
-
-export default Player;

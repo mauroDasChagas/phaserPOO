@@ -1,4 +1,4 @@
-class Background {
+export default class Background {
     constructor(scene, height, width, sprite) {
         // properties;
         this.scene = scene;
@@ -21,5 +21,3 @@ class Background {
         scene.add.image(height, width, sprite);
     }
 }
-
-export default Background;
