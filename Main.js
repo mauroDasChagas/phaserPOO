@@ -30,6 +30,9 @@ class Main extends Phaser.Scene {
         this.setBackgroundInMainScene();
         this.setPlayerInMainScene();
         this.setEnemiesInMainScene();
+
+        // colisão entre bala e inimigos;
+        this.physics.add.overlap(this.player.bullets, this.enemies, this.bulletHitEnemy, null, this);
     }
 
     setBackgroundInMainScene() {
@@ -46,6 +49,20 @@ class Main extends Phaser.Scene {
         this.enemies = this.physics.add.group({ classType: Enemy, runChildUpdate: true });
     }
 
+    bulletHitEnemy(bullet, enemy) {
+        bullet.destroy();
+        enemy.destroy();
+        this.numEnemiesInScene--;
+    }
+    
+
+    update() {
+        // movimentos do jogador;
+        this.player.move();
+        this.player.shoot('bullet');
+        this.generateRandomEnemies();
+    }
+
     generateRandomEnemies() {
         if (this.numEnemiesInScene >= 10) {
             return;
@@ -60,11 +77,10 @@ class Main extends Phaser.Scene {
         }
     }
 
-    update() {
-        // movimentos do jogador;
-        this.player.move();
-        this.player.shoot('bullet');
-        this.generateRandomEnemies();
+    // método auxiliar para a classe Enemy
+    destroyEnemy(enemy) {
+        enemy.destroy();
+        this.numEnemiesInScene--;
     }
 }
 
