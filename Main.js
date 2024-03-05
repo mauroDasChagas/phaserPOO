@@ -8,7 +8,7 @@ class Main extends Phaser.Scene {
     background;
     player;
 
-    // construtor
+    // construtor;
     constructor() {
         super({ key: 'Main' });
     }
@@ -17,6 +17,7 @@ class Main extends Phaser.Scene {
         // carregando imagens;
         this.load.image('background', './assets/background.png');
         this.load.image('player', './assets/player.png');
+        this.load.image('bullet', './assets/bullet.png');
     }
 
     create() {
@@ -35,7 +36,9 @@ class Main extends Phaser.Scene {
     }
 
     update() {
+        // movimentos do jogador;
         this.player.move();
+        this.player.shoot();
     }
 }
 
