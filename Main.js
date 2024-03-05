@@ -1,12 +1,14 @@
 // importando classes;
 import Background from './Classes/Background.mjs';
 import Player from './Classes/Player.mjs';
+import Enemy from './Classes/Enemy.mjs'
 
 class Main extends Phaser.Scene {
 
     // variáveis que armazenarão as instâncias das classes;
     background;
     player;
+    enemies;
 
     // construtor;
     constructor() {
@@ -18,6 +20,7 @@ class Main extends Phaser.Scene {
         this.load.image('background', './assets/background.png');
         this.load.image('player', './assets/player.png');
         this.load.image('bullet', './assets/bullet.png');
+        this.load.image('enemy', './assets/enemy.png');
     }
 
     create() {
@@ -33,6 +36,14 @@ class Main extends Phaser.Scene {
     setPlayerInMainScene() {
         this.player = new Player(this, 400, 500, 'player', 0.3);
         this.player.createPlayer(this);
+    }
+
+    generateRandomEnemies() {
+
+    }
+
+    setEnemiesInMainScene() {
+
     }
 
     update() {

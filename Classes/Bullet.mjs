@@ -20,6 +20,7 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
 
         if (this.y < 0) {
             this.destroy();
+            // console.log('bullet destroyed');
         }
     }
 }
