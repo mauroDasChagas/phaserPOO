@@ -38,7 +38,7 @@ class Main extends Phaser.Scene {
     update() {
         // movimentos do jogador;
         this.player.move();
-        this.player.shoot();
+        this.player.shoot('bullet');
     }
 }
 

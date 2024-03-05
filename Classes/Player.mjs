@@ -56,16 +56,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
         }
     }
 
-    createBullet() {
-        const bullet = this.bullets.get(this.x, this.y);
+    createBullet(_sprite) {
+        const bullet = this.bullets.get(this.x, this.y - 32, _sprite);
 
         if (bullet) {
             bullet.fire();
         }
     }
-    shoot() {
+    shoot(_sprite) {
         if (this.inputShoot.isDown) {
-            this.createBullet();
+            this.createBullet(_sprite);
         }
     }
 }
