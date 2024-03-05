@@ -1,6 +1,6 @@
 export default class Enemy extends Phaser.GameObjects.Sprite {
 
-    speed;
+    speed = 4;
 
     constructor(scene, x, y, sprite) {
         super(scene, x, y, sprite).setScale(0.3);
@@ -18,9 +18,9 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     update() {
         this.y += this.speed;
 
-        if (this.y > 400) {
+        if (this.y > 700) {
             this.destroy();
-            // console.log('enemy destroyed');
+            console.log('enemy destroyed');
         }
     }
 }

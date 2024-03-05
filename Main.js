@@ -10,6 +10,9 @@ class Main extends Phaser.Scene {
     player;
     enemies;
 
+    // variável de controle para os inimigos;
+    numEnemiesInScene = 0;
+
     // construtor;
     constructor() {
         super({ key: 'Main' });
@@ -26,6 +29,7 @@ class Main extends Phaser.Scene {
     create() {
         this.setBackgroundInMainScene();
         this.setPlayerInMainScene();
+        this.setEnemiesInMainScene();
     }
 
     setBackgroundInMainScene() {
@@ -38,18 +42,29 @@ class Main extends Phaser.Scene {
         this.player.createPlayer(this);
     }
 
-    generateRandomEnemies() {
-
+    setEnemiesInMainScene() {
+        this.enemies = this.physics.add.group({ classType: Enemy, runChildUpdate: true });
     }
 
-    setEnemiesInMainScene() {
+    generateRandomEnemies() {
+        if (this.numEnemiesInScene >= 10) {
+            return;
+        } else {
+            const enemy = this.enemies.get(Math.random() * 900, -20, 'enemy');
 
+            if (enemy) {
+                enemy.spawn();
+            }
+
+            this.numEnemiesInScene++;
+        }
     }
 
     update() {
         // movimentos do jogador;
         this.player.move();
         this.player.shoot('bullet');
+        this.generateRandomEnemies();
     }
 }
 
