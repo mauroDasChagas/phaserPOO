@@ -5,11 +5,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
     inputs;
     inputShoot;
     speed = 8;
+    bullets;
 
     constructor(scene, x, y, sprite, scale) {
         super(scene, x, y, sprite).setScale(scale);
         this.inputs = scene.input.keyboard.createCursorKeys();
         this.inputShoot = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.bullets = scene.physics.add.group({ classType: Bullet, runChildUpdate: true });
     }
 
     createPlayer(_scene) {
@@ -54,9 +56,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
         }
     }
 
+    createBullet() {
+        const bullet = this.bullets.get(this.x, this.y);
+
+        if (bullet) {
+            bullet.fire();
+        }
+    }
     shoot() {
         if (this.inputShoot.isDown) {
-            console.log('shoot');
+            this.createBullet();
         }
     }
 }
